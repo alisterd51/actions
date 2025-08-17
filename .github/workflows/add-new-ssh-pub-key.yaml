@@ -17,7 +17,7 @@ jobs:
           echo "${{ secrets.SERVER_SSH_KEY_PUB }}" > ~/.ssh/id_ed25519.pub
           chmod 600 ~/.ssh/id_ed25519*
           ssh-keyscan -p "${{ secrets.SERVER_PORT }}" "${{ secrets.SERVER_HOST }}" >> ~/.ssh/known_hosts
-      - name: run update
+      - name: add pub key to authorized_keys
         run: |
           ssh -o StrictHostKeyChecking=yes -p "${{ secrets.SERVER_PORT }}" "${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}" << 'EOF'
             echo ${{ secrets.NEW_SERVER_SSH_KEY_PUB }} >> ~/.ssh/authorized_keys
